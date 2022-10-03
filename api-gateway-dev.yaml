@@ -6,10 +6,12 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]'
-            allowedOrigns: "http://localhost:9001"
+            allowedOrigns: "http://localhost:8080"
             allowedMethods:
               - GET
               - POST
+              - DELETE
+              - PUT
             allowedHeaders:
               - Content-Type
         add-to-simple-url-handler-mapping: true
