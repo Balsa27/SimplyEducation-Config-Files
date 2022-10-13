@@ -28,6 +28,13 @@ spring:
             - Method=GET, POST, PUT, DELETE
           filters:
             - RemoveRequestHeader=Cookie
+        - id: AUTH-SERVER
+          uri: lb://AUTH-SERVER
+          predicates:
+            - Path=/api/auth/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
 server:
   port: 8080
 eureka:
