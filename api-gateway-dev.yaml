@@ -43,6 +43,20 @@ spring:
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
+        - id: PURCHASES
+          uri: lb://PURCHASES
+          predicates:
+            - Path=/purchases/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: PURCHASES
+          uri: lb://SUBSCRIPTION
+          predicates:
+            - Path=/subscription/**
+            - Method=POST, GET
+          filters:
+            - RemoveRequestHeader=Cookie
 server:
   port: 8080
 eureka:
