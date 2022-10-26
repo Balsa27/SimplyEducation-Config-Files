@@ -57,6 +57,13 @@ spring:
             - Method=POST, GET
           filters:
             - RemoveRequestHeader=Cookie
+        - id: STATITICS
+          uri: lb://STATISTICS
+          predicates:
+            - Path=/statistics/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
 server:
   port: 8080
 eureka:
