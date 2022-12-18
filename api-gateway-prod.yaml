@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+      default-filters:
+        - name: TokenFilter 
+      routes:
+        - id: USER-COURSES
+          uri: lb://USER-COURSES
+          predicates:
+            - Path=/user-courses/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: CART
+          uri: lb://CART
+          predicates:
+            - Path=/cart/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: COURSES
+          uri: lb://COURSES
+          predicates:
+            - Path=/courses/**
+            - Method=GET, POST, PUT, DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: AUTH-SERVER
+          uri: lb://AUTH-SERVER
+          predicates:
+            - Path=/api/auth/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: PURCHASES
+          uri: lb://PURCHASES
+          predicates:
+            - Path=/purchases/**
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: PURCHASES
+          uri: lb://SUBSCRIPTION
+          predicates:
+            - Path=/subscription/**
+            - Method=POST, GET
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: STATITICS
+          uri: lb://STATISTICS
+          predicates:
+            - Path=/statistics/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie  
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:9001/eureka/
+  instance:
+    hostname: localhost
+  enabled: true
